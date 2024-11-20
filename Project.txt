@@ -1,0 +1,114 @@
+import random
+
+class FootballMatch:
+    def __init__(self, team1, team2, players1, players2):
+        self.team1 = team1
+        self.team2 = team2
+        self.score1 = 0
+        self.score2 = 0
+        self.scorers1 = []  # List to track team1's scorers
+        self.scorers2 = []  # List to track team2's scorers
+        self.players1 = players1  # List of team1 players
+        self.players2 = players2  # List of team2 players
+
+    def simulate_goal(self, team):
+        scorer = random.choice(self.players1) if team == self.team1 else random.choice(self.players2)
+        if team == self.team1:
+            self.score1 += 1
+            self.scorers1.append(scorer)
+        else:
+            self.score2 += 1
+            self.scorers2.append(scorer)
+
+    def simulate_match(self, minutes=90):
+        print(f"Match between {self.team1} and {self.team2} is starting...")
+        for minute in range(1, minutes + 1):
+            if random.random() < 0.05:
+                scoring_team = random.choice([self.team1, self.team2])
+                self.simulate_goal(scoring_team)
+            if minute % 10 == 0:
+                print(f"Minute {minute}: {self.team1} {self.score1} - {self.team2} {self.score2}")
+
+    def final_score(self):
+        print(f"\nFinal Score: {self.team1} {self.score1} - {self.team2} {self.score2}")
+        print(f"{self.team1} scorers: {', '.join(self.scorers1)}")
+        print(f"{self.team2} scorers: {', '.join(self.scorers2)}")
+        if self.score1 > self.score2:
+            print(f"{self.team1} wins!")
+        elif self.score1 < self.score2:
+            print(f"{self.team2} wins!")
+        else:
+            print("It's a draw!")
+
+# List of 32 teams
+teams = [
+    "Real Madrid", "Manchester City", "Bayern Munich", "Paris Saint-Germain", "Liverpool", 
+    "Inter Milan", "Borussia Dortmund", "RB Leipzig", "Barcelona", "Bayer Leverkusen", 
+    "Atlético Madrid", "Atalanta", "Juventus", "Benfica", "Arsenal", "Club Brugge", 
+    "Shakhtar Donetsk", "Milan", "Feyenoord", "Sporting CP", "PSV Eindhoven", "Dinamo Zagreb", 
+    "Red Bull Salzburg", "Lille", "Red Star Belgrade", "Young Boys", "Celtic", "Slovan Bratislava", 
+    "Monaco", "Sparta Prague", "Aston Villa", "Bologna", "Girona", "VfB Stuttgart", "Sturm Graz", "Brest"
+]
+
+# Predefined list of players for each team (just a small example for each)
+players = {
+    "Real Madrid": ["Benzema", "Vinícius Jr.", "Modric", "Cruz", "Carvajal", "Alaba", "Tchouaméni", "Courtois", "Militão", "Rodrygo", "Asensio", "Kroos", "Mendy", "Camavinga", "Nacho", "Valverde"],
+    "Manchester City": ["Haaland", "De Bruyne", "Mahrez", "Gundogan", "Foden", "Ederson", "Stones", "Dias", "Akanji", "Walker", "Bernardo Silva", "Rodri", "Alvarez", "Phillips", "Grealish", "Laporte"],
+    "Bayern Munich": ["Lewandowski", "Müller", "Sané", "Goretzka", "Kimmich", "Mané", "Choupo-Moting", "Musiala", "Coman", "Upamecano", "Pavard", "Süle", "Neuer", "Gnabry", "Kimmich", "Zirkzee"],
+    "Paris Saint-Germain": ["Mbappé", "Messi", "Neymar", "Sergio Ramos", "Verratti", "Marquinhos", "Hakimi", "Donarumma", "Ramos", "Vitinha", "Soler", "Paredes", "Ramos", "Kimpembe", "Mendes", "Nuno Mendes"],
+    "Liverpool": ["Salah", "Firmino", "Jota", "Van Dijk", "Trent Alexander-Arnold", "Thiago", "Robertson", "Alisson", "Gomez", "Matip", "Henderson", "Fabinho", "Coutinho", "Diaz", "Milner", "Nunez"],
+    "Inter Milan": ["Lukaku", "Lautaro Martínez", "Barella", "Dumfries", "Bastoni", "Calhanoglu", "Mkhitaryan", "Handanovic", "Skriniar", "Gosens", "Brozovic", "Dzeko", "Lazaro", "Darmian", "Correa", "D'Ambrosio"],
+    "Borussia Dortmund": ["Haaland", "Reus", "Sancho", "Brandt", "Hummels", "Witsel", "Bellingham", "Can", "Moukoko", "Götze", "Meunier", "Schulz", "Zagadou", "Hitz", "Haaland", "Delaney"],
+    "RB Leipzig": ["Nkunku", "Timo Werner", "Szoboszlai", "Forsberg", "Angelino", "Simakan", "Gvardiol", "Leipzig", "Klostermann", "Haidara", "Laimer", "Poulsen", "Halstenberg", "Kluivert", "Blaswich", "Sorloth"],
+    "Barcelona": ["Lewandowski", "Dembele", "Pedri", "Fati", "De Jong", "Ter Stegen", "Raphinha", "Koundé", "Araujo", "Pique", "Sergi Roberto", "Gavi", "Busquets", "Ansu Fati", "Eric Garcia", "Ferran Torres"],
+    "Bayer Leverkusen": ["Diaby", "Wirtz", "Frimpong", "Azhary", "Tapsoba", "Hradecky", "Aranguiz", "Andrich", "Volland", "Alario", "Baumgartlinger", "Piero", "Bellarabi", "Amiri", "Palacios", "Lars Bender"],
+    "Atlético Madrid": ["Griezmann", "João Félix", "Correa", "Felipe", "Savic", "Koke", "Carrasco", "Oblak", "De Paul", "Llorente", "Reinildo", "Hermoso", "Vrsaljko", "Morata", "Simeone", "Saul"],
+    "Atalanta": ["Zapata", "Muriel", "Pasalic", "Gosens", "De Roon", "Freuler", "Ilicic", "Maehle", "Ruggeri", "Hateboer", "Gollini", "Toloi", "Palomino", "Pessina", "Malinovskyi", "Scalvini"],
+    "Juventus": ["Vlahovic", "Di Maria", "Pogba", "Rabiot", "Chiesa", "Bonucci", "Szczęsny", "Locatelli", "Cuadrado", "Miretti", "Milik", "Bremer", "Paredes", "De Ligt", "Alex Sandro", "Danilo"],
+    "Benfica": ["Ramos", "Nunez", "Fernandes", "Enzo Fernandez", "Grimaldo", "Otamendi", "Florentino", "Aursnes", "Taarabt", "Gilberto", "Verissimo", "Joao Mario", "Weigl", "Zivkovic", "Seferovic", "Dara"],
+    "Arsenal": ["Saka", "Nketiah", "Martinelli", "Jesus", "Odegaard", "Partey", "Xhaka", "Ramsdale", "Saliba", "Tierney", "White", "Tomiyasu", "Zinchenko", "Jorginho", "Trossard", "Nelson"],
+    "Club Brugge": ["Okereke", "Lang", "De Ketelaere", "Mechele", "Sobol", "Vanaken", "Mignolet", "Rits", "Nusa", "Kossounou", "Jutglà", "Balanta", "De Norre", "Verbruggen", "Kehinde", "Vormer"],
+    "Shakhtar Donetsk": ["Mudryk", "Tete", "Marcos Antonio", "Shved", "Sikan", "Trubin", "Matviyenko", "Sardyk", "Bondarenko", "Kryvtsov", "Petryak", "Stefano", "Tymchyk", "Kapilov", "Solomon", "Kornienko"],
+    "Milan": ["Leao", "Giroud", "Ibrahimovic", "Tonali", "Bennacer", "Theo Hernandez", "Kjaer", "Maignan", "Calabria", "Krunić", "Tomori", "Rebic", "De Ketelaere", "Saelemaekers", "Dest", "Brahim Diaz"],
+    "Feyenoord": ["Sinisterra", "Til", "Jahanbakhsh", "Quinten Timber", "Gernot Trauner", "Kökcü", "Geertruida", "Bijlow", "Idrissi", "Danilo", "Szymanski", "Matusiwa", "Hartman", "Bozenik", "Kasanwirjo", "Rulli"],
+    "Sporting CP": ["Nunes", "Sarabia", "Trincão", "Edwards", "Palhinha", "Coates", "Santos", "Ugarte", "Bastien", "Porro", "Tabata", "Santos", "Inácio", "Feddal", "Sánchez", "Bragança"],
+    "PSV Eindhoven": ["Gakpo", "Xavi Simons", "Veerman", "Teze", "Max", "Boscagli", "Ramalho", "Zahavi", "Bergwijn", "Veerman", "Mauro", "De Jong", "Ramselaar", "Zangronis", "Sangaré", "Taylor"],
+    "Dinamo Zagreb": ["Petkovic", "Majer", "Ademi", "Mislav Oršić", "Jakić", "Gvardiol", "Livaković", "Dario Melnjak", "Gračan", "Gvardiol", "Franci", "Čolak", "Pjaca", "Badelj", "Kovačić", "Brlek"],
+    "Red Bull Salzburg": ["Adeyemi", "Okafor", "Kjaergaard", "Daka", "Wöber", "Kalajdzic", "Berisha", "Smeets", "Capaldo", "Seiwald", "Koita", "Leitgeb", "Müller", "Christensen", "Azzam", "Jovic"],
+    "Lille": ["David", "Bamba", "Yilmaz", "Sanches", "Botman", "Lecoeur", "Linhart", "Reina", "Djalo", "Bamba", "Ikone", "Zhegrova", "Amadou", "Sanches", "Lahi", "Maldini"],
+    "Red Star Belgrade": ["Katai", "Mitrovic", "Jovic", "Milijaš", "Pavkov", "Srnić", "Jovanović", "Degenek", "Sanogo", "Gajić", "Petrovic", "Belić", "Godfrey", "Marko", "Jovic"],
+    "Young Boys": ["Ngamaleu", "Nsame", "Sow", "Rieder", "Xhaka", "Lustenberger", "Ritzmaier", "Elia", "Hoarau", "Elia", "Aliji", "Sene", "Mehmedi", "Haraguchi", "Maja", "Bregu"],
+    "Celtic": ["Jota", "Kyogo", "Abada", "Hatate", "McGregor", "Furuhashi", "Starfelt", "Carter-Vickers", "Ralston", "Maeda", "Turnbull", "Rogic", "Forrest", "McCarthy", "Julien", "Bain"],
+    "Slovan Bratislava": ["Nono", "Sukhy", "Cicman", "Zeman", "Kadić", "Graziano", "Piazzetta", "Ibrahimi", "Zilina", "Medvedev", "Matyáš", "Tžina", "Spoljaric", "Marek"],
+    "Monaco": ["Ben Yedder", "Volland", "Golovin", "Musa", "Fofana", "Badiashile", "Maripan", "Disasi", "Caio", "Jovetic", "Sarr", "Sanches", "Ricardo", "Tchouameni", "Gillet", "Mata"],
+    "Sparta Prague": ["Kanga", "Kuchta", "Hlozek", "Vydra", "Zeleny", "Bajić", "Hori", "Hronek", "Holzer", "Poikonen", "Vlach", "Vidlicka", "Řezník", "Lukas", "Uhrin", "Koudelka"],
+    "Aston Villa": ["Watkins", "Bailey", "McGinn", "Douglas Luiz", "Coutinho", "Ramsey", "Ings", "Mings", "Cash", "Martinez", "Konza", "Digne", "Kamara", "Chambers", "Davis", "Emi"],
+    "Bologna": ["Arnautovic", "Barrow", "Soriano", "Vignato", "Dominguez", "Medel", "Theate", "Skorupski", "Moro", "Zirkzee", "Vignato", "Svanberg", "Antov", "Orsolini", "Stryger", "Silva"],
+    "Girona": ["Stuani", "Taty Castellanos", "Sylla", "Valery", "Samu Saiz", "Kravets", "Pons", "Silva", "Perez", "Arnau", "Ramirez", "Ramallo", "Rico", "Portu", "Hernandez", "Gonzalez"],
+    "VfB Stuttgart": ["Kempf", "Endo", "Mavropanos", "Silas", "Guirassy", "Coulibaly", "Karazor", "Faghir", "Klement", "Tanguy", "Sosa", "Gonzalez", "Förster", "Anton", "Kempf"],
+    "Sturm Graz": ["Ibrahim Sekou", "Schiemer", "Klemens", "Geyrhofer", "Obernosterer", "Hoffer", "Bauer", "Stankovic", "Baumgartner", "Müller", "Gütl", "Grillitsch", "Franke", "Amini", "Groß", "Jurik"],
+    "Brest": ["Giraudon", "Del Castillo", "Magno", "Buomou", "Varane", "Lapierr", "Chardonnet", "Autret", "Romain", "Makengo", "Lacoux", "Hassani", "Tounkara", "Leborgne", "Le Douaron", "Dau"],
+}
+    # Add players for all teams similarly...
+
+
+# Choose your team
+team_choice = input("Choose your team from the following list:\n" + "\n".join(teams) + "\n")
+
+# Validate user input
+if team_choice not in teams:
+    print("Invalid team. Exiting the game.")
+else:
+    # Randomly select an opponent from the list
+    teams.remove(team_choice)
+    opponent = random.choice(teams)
+
+    # Initialize match with team players
+    match = FootballMatch(team_choice, opponent, players[team_choice], players[opponent])
+
+    # Simulate the match
+    match.simulate_match()
+
+    # Show final score and scorers
+    match.final_score()
+
