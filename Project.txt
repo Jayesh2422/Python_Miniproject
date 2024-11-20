@@ -40,7 +40,6 @@ class FootballMatch:
         else:
             print("It's a draw!")
 
-# List of 32 teams
 teams = [
     "Real Madrid", "Manchester City", "Bayern Munich", "Paris Saint-Germain", "Liverpool", 
     "Inter Milan", "Borussia Dortmund", "RB Leipzig", "Barcelona", "Bayer Leverkusen", 
@@ -50,7 +49,6 @@ teams = [
     "Monaco", "Sparta Prague", "Aston Villa", "Bologna", "Girona", "VfB Stuttgart", "Sturm Graz", "Brest"
 ]
 
-# Predefined list of players for each team (just a small example for each)
 players = {
     "Real Madrid": ["Benzema", "Vinícius Jr.", "Modric", "Cruz", "Carvajal", "Alaba", "Tchouaméni", "Courtois", "Militão", "Rodrygo", "Asensio", "Kroos", "Mendy", "Camavinga", "Nacho", "Valverde"],
     "Manchester City": ["Haaland", "De Bruyne", "Mahrez", "Gundogan", "Foden", "Ederson", "Stones", "Dias", "Akanji", "Walker", "Bernardo Silva", "Rodri", "Alvarez", "Phillips", "Grealish", "Laporte"],
@@ -89,13 +87,9 @@ players = {
     "Sturm Graz": ["Ibrahim Sekou", "Schiemer", "Klemens", "Geyrhofer", "Obernosterer", "Hoffer", "Bauer", "Stankovic", "Baumgartner", "Müller", "Gütl", "Grillitsch", "Franke", "Amini", "Groß", "Jurik"],
     "Brest": ["Giraudon", "Del Castillo", "Magno", "Buomou", "Varane", "Lapierr", "Chardonnet", "Autret", "Romain", "Makengo", "Lacoux", "Hassani", "Tounkara", "Leborgne", "Le Douaron", "Dau"],
 }
-    # Add players for all teams similarly...
 
-
-# Choose your team
 team_choice = input("Choose your team from the following list:\n" + "\n".join(teams) + "\n")
 
-# Validate user input
 if team_choice not in teams:
     print("Invalid team. Exiting the game.")
 else:
@@ -111,4 +105,3 @@ else:
 
     # Show final score and scorers
     match.final_score()
-
